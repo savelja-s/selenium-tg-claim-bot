@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  stgcb:
+    build:
+      dockerfile: ./docker/Dockerfile
+    container_name: stgcb
+#    command: ["bash", "run_all_apps.sh"]
+    environment:
+      - "TZ=Europe/Kyiv"
+    volumes:
+#      - ./screenshots/:/usr/src/app/screenshots/
+      - ./games:/usr/src/app/games
+      - ./selenium:/usr/src/app/selenium
+      - ./variables.txt:/usr/src/app/variables.txt
+      - ./pm2_dumps:/root/.pm2
+    restart: unless-stopped
+    working_dir: /usr/src/app

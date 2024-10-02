@@ -1,0 +1,39 @@
+#!/bin/bash
+
+ARCH=$(uname -m)
+
+install_google_chrome() {
+    wget -O /tmp/chrome.deb https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/google-chrome-stable_126.0.6478.114-1_amd64.deb
+    dpkg -i /tmp/chrome.deb
+    apt-get install -f -y
+    rm /tmp/chrome.deb
+}
+
+install_chromium_arm64() {
+    wget http://launchpadlibrarian.net/660838579/chromium-codecs-ffmpeg-extra_112.0.5615.49-0ubuntu0.18.04.1_arm64.deb
+    gdebi -n chromium-codecs-ffmpeg-extra_112.0.5615.49-0ubuntu0.18.04.1_arm64.deb
+
+    wget http://launchpadlibrarian.net/660838574/chromium-browser_112.0.5615.49-0ubuntu0.18.04.1_arm64.deb
+    gdebi -n chromium-browser_112.0.5615.49-0ubuntu0.18.04.1_arm64.deb
+
+    wget http://launchpadlibrarian.net/660838578/chromium-chromedriver_112.0.5615.49-0ubuntu0.18.04.1_arm64.deb
+    gdebi -n chromium-chromedriver_112.0.5615.49-0ubuntu0.18.04.1_arm64.deb
+}
+
+install_chromedriver() {
+    apt install -y unzip
+    wget https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.63/linux64/chromedriver-linux64.zip
+    unzip chromedriver-linux64.zip
+    mv chromedriver-linux64/chromedriver /usr/local/bin/
+    chmod +x /usr/local/bin/chromedriver
+}
+
+if [[ "$ARCH" == "x86_64" ]]; then
+    install_google_chrome
+    install_chromedriver
+elif [[ "$ARCH" == "aarch64" ]]; then
+    install_chromium_arm64
+else
+    echo "Unsupported architecture: $ARCH"
+    exit 1
+fi

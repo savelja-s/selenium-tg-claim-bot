@@ -1,0 +1,18 @@
+{
+  "forceClaim": true,
+  "debugIsOn": false,
+  "hideSensitiveInput": true,
+  "screenshotQRCode": false,
+  "maxSessions": 16,
+  "verboseLevel": 3,
+  "telegramVerboseLevel": 2,
+  "lowestClaimOffset": 0,
+  "highestClaimOffset": 15,
+  "forceNewSession": false,
+  "useProxy": false,
+  "proxyAddress": "http://127.0.0.1:8080",
+  "requestUserAgent": false,
+  "telegramBotToken": "",
+  "telegramBotChatId": "",
+  "enableCache": true
+}
